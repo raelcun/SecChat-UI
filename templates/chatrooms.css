@@ -1,0 +1,62 @@
+div.left
+{
+	width: 50%;
+	float: left;
+	text-align: center;
+}
+div.right
+{
+	width: 50%;
+	float: right;
+	text-align: center;
+}
+
+div.user-window
+{
+	border-style: solid;
+	width: 50%;
+	height: 40%;
+	margin: 0 auto;
+	text-align: left;
+	overflow: auto;
+}
+div.message-window
+{
+	border-style: solid;
+	width: 70%;
+	height: 40%;
+	margin: 0 auto;
+	text-align: left;
+	overflow: auto;
+	margin-bottom: 1%;
+}
+
+input.connect
+{
+	margin-top: .5%;
+	margin-left: .5%;
+	margin-bottom: .5%;
+}
+input.form-control
+{
+	width: 86%;
+	float: left;
+}
+
+button.send
+{
+	margin-right: .5%;
+	margin-top: .5%;
+	width: 6%;
+	float: right;
+	vertical-align: middle;
+}
+button.disconnect
+{
+	margin-top: .5%;
+	margin-left: .5%;
+	margin-right: .5%;
+	width: 6%;
+	float: right;
+	vertical-align: middle;
+}

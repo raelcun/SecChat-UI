@@ -1,0 +1,40 @@
+<input class="connect" [(ngModel)]="groupName"> <button (click)="addChatroom(groupName)">connect</button>
+
+<div>
+	<ul class="nav nav-tabs">
+		<li *ngFor="#chatroom of chatrooms" (click)="selectChatroom(chatroom)" [class.active]="chatroom.active">
+			 <a href="#">{{chatroom.title}}</a>
+		</li>
+	</ul>
+
+	<div *ngIf="selectedChatroom" class="chatroom">
+		<br>
+		<div class="left">
+			Users
+			<div class="user-window">
+				<ul style="list-style-type:none">
+					<li *ngFor="#user of selectedChatroom.users">
+			 			{{user}}
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="right">
+			Messages
+			<div class="message-window">
+				<ul style="list-style-type:none">
+					<li *ngFor="#message of selectedChatroom.messages">
+			 			{{message.from_username}}: {{message.message}}
+					</li>
+				</ul>
+			</div> 
+		</div>
+
+		<div class="input-window">
+			<input class="form-control" id="focusedInput" type="text" onClick="this.select()" [(ngModel)]="message">
+			<button class="disconnect" (click)="deleteChatroom()">Disconnect</button>
+			<button class="send" (click)="sendMessage(message)">Send</button>
+		</div>
+	</div>
+</div>
