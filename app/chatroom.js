@@ -4,11 +4,11 @@ System.register([], function(exports_1) {
         setters:[],
         execute: function() {
             Chatroom = (function () {
-                function Chatroom(title, guid, active, users, messages) {
+                function Chatroom(title, port, guid, active, messages) {
                     this.title = title;
+                    this.port = port;
                     this.guid = guid;
                     this.active = active;
-                    this.users = users;
                     this.messages = messages;
                 }
                 return Chatroom;

@@ -49,17 +49,18 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', './chatroo
                         }
                     }
                 };
-                ChatroomService.prototype.sendMessage = function (message, chatroom) {
+                ChatroomService.prototype.sendMessage = function (message, user) {
+                    console.log(message);
                     var body = JSON.stringify({ message: message });
                     var headers = new http_2.Headers({ 'Content-Type': 'application/json' });
                     var options = new http_2.RequestOptions({ headers: headers });
-                    return this.http.post("http://localhost:9000/sendMessage", body, options)
+                    return this.http.post("http://localhost:" + user.port + "/sendMessage", body, options)
                         .map(function (res) { return res.json().result; })
                         .do(function (data) { return console.log(data); }) // eyeball results in the console
                         .catch(this.handleError);
                 };
-                ChatroomService.prototype.getMessages = function (chatroom) {
-                    return this.http.get("http://localhost:9000/messages")
+                ChatroomService.prototype.getMessages = function (user) {
+                    return this.http.get("http://localhost:" + user.port + "/messages")
                         .map(function (res) { return res.json().result; })
                         .do(function (data) { return console.log(data); }) // eyeball results in the console
                         .catch(this.handleError);

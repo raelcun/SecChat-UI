@@ -1,1 +1,1 @@
-{"version":3,"file":"message.js","sourceRoot":"","sources":["message.ts"],"names":["Message","Message.constructor"],"mappings":";;;;;YAEA;gBAAAA;gBAKAC,CAACA;gBAADD,cAACA;YAADA,CAACA,AALD,IAKC;YALD,6BAKC,CAAA"}
+{"version":3,"file":"message.js","sourceRoot":"","sources":["message.ts"],"names":["Message","Message.constructor"],"mappings":";;;;;YAEA;gBAAAA;gBAKAC,CAACA;gBAADD,cAACA;YAADA,CAACA,AALD,IAKC;YALD,6BAKC,CAAA;;;;AAED,0MAA0M"}

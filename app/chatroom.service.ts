@@ -5,6 +5,7 @@ import {Observable}     from 'rxjs/Observable';
 import {Chatroom} from './chatroom';
 import {ChatroomsDatabase} from './chatrooms-database';
 import {Message} from './message';
+import {User} from './user'
 
 @Injectable()
 export class ChatroomService
@@ -42,20 +43,22 @@ export class ChatroomService
 		}
 	}
 
-	sendMessage(message: Message, chatroom: Chatroom)
+	sendMessage(message: Message, user: User)
 	{
+		console.log(message)
+
 		let body = JSON.stringify({ message });
 		let headers = new Headers({ 'Content-Type': 'application/json'});
 		let options = new RequestOptions({ headers: headers });
-		return this.http.post("http://localhost:9000/sendMessage", body, options)
+		return this.http.post("http://localhost:" + user.port + "/sendMessage", body, options)
 		                .map(res =>  <Message> res.json().result)
 						.do(data => console.log(data)) // eyeball results in the console
 						.catch(this.handleError)
 	}
 
-	getMessages(chatroom: Chatroom)
+	getMessages(user: User)
 	{
-		return this.http.get("http://localhost:9000/messages")
+		return this.http.get("http://localhost:" + user.port + "/messages")
 	                .map(res => <Message[]> res.json().result)
 					.do(data => console.log(data)) // eyeball results in the console
 					.catch(this.handleError);

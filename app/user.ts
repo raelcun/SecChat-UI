@@ -3,6 +3,7 @@ import {Message} from './message';
 
 export class User
 {
-	name: string;
+	username: string;
+	port: string;
 	chatrooms: Chatroom[];
 }

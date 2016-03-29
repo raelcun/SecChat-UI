@@ -5,8 +5,8 @@ export class Chatroom
 {
 	constructor(
     public title:string,
+    public port:string,
     public guid: string,
     public active:boolean,
-    public users:string[],
     public messages:Message[]) { }
 }

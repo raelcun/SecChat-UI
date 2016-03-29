@@ -28,52 +28,65 @@ System.register(['angular2/core', 'angular2/http', './chatroom.service', './user
             ChatRooms = (function () {
                 function ChatRooms(_chatroomService) {
                     this._chatroomService = _chatroomService;
-                    this.currentUser = new user_1.User;
-                    this.currentUser.name = "Dave";
-                    this.currentUser.chatrooms = [];
+                    this.chatrooms = [];
                 }
                 ChatRooms.prototype.ngOnInit = function () {
-                    this.getChatrooms();
+                };
+                ChatRooms.prototype.setUser = function (username, port) {
+                    console.log(username, port);
+                    this.currentUser = new user_1.User;
+                    this.currentUser.username = username;
+                    this.currentUser.port = port;
+                    this.currentUser.chatrooms = [];
                 };
                 ChatRooms.prototype.getChatrooms = function () {
                     var _this = this;
                     this._chatroomService.getChatrooms().then(function (chatrooms) {
                         _this.chatrooms = chatrooms;
                         if (chatrooms) {
-                            _this.selectChatroom(chatrooms[0]);
+                            if (!_this.selectedChatroom)
+                                _this.selectChatroom(chatrooms[0]);
                         }
+                    }).then(function () {
+                        _this._chatroomService.getMessages(_this.currentUser).subscribe(function (messages) { console.log(messages); _this.selectedChatroom.messages = messages; }, function (error) { return _this.errorMessage = error; });
                     });
-                    this._chatroomService.getMessages().subscribe(function (messages) { return _this.selectedChatroom.messages = messages; }, function (error) { return _this.errorMessage = error; });
                 };
-                ChatRooms.prototype.addChatroom = function (title) {
+                ChatRooms.prototype.addChatroom = function (title, port) {
+                    console.log(title, port);
                     if (title) {
-                        var chatroom = { "title": title, "guid": title, "active": false, "users": [this.currentUser.name], "messages": [] };
+                        var chatroom = { "title": title, "port": port, "guid": title, "active": false, "messages": [] };
                         if (this._chatroomService.addChatroom(chatroom))
-                            this.selectChatroom(chatroom);
+                            this.chatrooms.push(chatroom);
+                        this.selectChatroom(chatroom);
                         this.currentUser.chatrooms.push(this.selectedChatroom);
                     }
                     delete this.newChatroom;
                 };
                 ChatRooms.prototype.selectChatroom = function (chatroom) {
+                    console.log(this.chatrooms);
                     this.chatrooms.forEach(function (tab) {
                         tab.active = false;
                     });
                     chatroom.active = true;
                     this.selectedChatroom = chatroom;
+                    console.log(this.selectedChatroom);
                 };
                 ChatRooms.prototype.deleteChatroom = function () {
-                    this._chatroomService.deleteChatroom(this.selectedChatroom);
-                    if (this.chatrooms.length > 0) {
-                        this.selectChatroom(this.chatrooms[0]);
-                    }
-                    else {
-                        delete this.selectedChatroom;
-                    }
+                    this.getChatrooms();
+                    // this._chatroomService.deleteChatroom(this.selectedChatroom);
+                    // if (this.chatrooms.length > 0)
+                    // {
+                    // 	this.selectChatroom(this.chatrooms[0]);
+                    // }
+                    // else
+                    // {
+                    // 	delete this.selectedChatroom;
+                    // }
                 };
                 ChatRooms.prototype.sendMessage = function (msg) {
                     var _this = this;
-                    var message = { "from_username": this.currentUser.name, "date_recieved": Date(), "message": msg };
-                    this._chatroomService.sendMessage(message, this.selectedChatroom).subscribe(function (message) { return _this.selectedChatroom.messages.push(message); }, function (error) { return _this.errorMessage = error; });
+                    var message = { "from_username": this.currentUser.username, "to_username": this.selectedChatroom.title, "message": msg };
+                    this._chatroomService.sendMessage(message, this.currentUser).subscribe(function (message) { return _this.selectedChatroom.messages.push(message); }, function (error) { return _this.errorMessage = error; });
                     delete this.message;
                 };
                 ChatRooms = __decorate([

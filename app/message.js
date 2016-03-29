@@ -12,4 +12,5 @@ System.register([], function(exports_1) {
         }
     }
 });
+//(message.from_username === selectedChatroom.title && message.to_username === currentUser.username) || (message.from_username === currentUser.username && message.to_username === selectedChatroom.title) 
 //# sourceMappingURL=message.js.map
